@@ -18,6 +18,8 @@ function main() {
     console.log("Too many arguments provided. Please check your command.");
     return;
   }
+
+  // Extract the command
   const command = args[0];
 
   switch (command) {
@@ -26,6 +28,12 @@ function main() {
       if (!description) {
         console.error("Please provide a task description.");
         return;
+      }
+      const id = addTasks(description);
+      if (id > 0) {
+        console.log(`Task added successfully (ID: ${id})`);
+      } else {
+        console.log("Error occured when adding task. Please try again!");
       }
       break;
 

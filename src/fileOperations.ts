@@ -32,7 +32,23 @@ const readTasks = (status: TStatus = "all"): TTask[] => {
 
 // Add tasks to the JSON file
 function addTasks(task: string): number {
-  return -1;
+  try {
+    const tasks = readTasks();
+    const newId = Math.max(0, ...tasks.map((task) => task?.id || 0)) + 1;
+    const newTask: TTask = {
+      id: newId,
+      description: task,
+      status: "todo",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    tasks.push(newTask);
+    fs.writeFileSync(FILE_PATH, JSON.stringify(tasks, null, 2), "utf-8");
+    return newId;
+  } catch (error) {
+    console.error("Error in addTask:", error); // Uncomment for debugging
+    return -1;
+  }
 }
 
 export { initializeStorage, readTasks, addTasks };
