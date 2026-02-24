@@ -52,7 +52,7 @@ function addTasks(task: string): number {
 }
 
 // Update task in the JSON file
-const updateTasks = (id: number, task: string, status?: TStatus): boolean => {
+const updateTasks = (id: number, task: string): boolean => {
   try {
     const tasks = readTasks();
     const taskIndex = tasks.findIndex((task) => task.id === id);
@@ -61,9 +61,6 @@ const updateTasks = (id: number, task: string, status?: TStatus): boolean => {
       return false;
     }
     tasks[taskIndex]!.description = task;
-    if (status) {
-      tasks[taskIndex]!.status = status;
-    }
     tasks[taskIndex]!.updatedAt = new Date().toISOString();
     fs.writeFileSync(FILE_PATH, JSON.stringify(tasks, null, 2), "utf-8");
     return true;
@@ -82,7 +79,10 @@ const updateTaskStatus = (id: number, status: TStatus): boolean => {
       console.error(`Task with ID ${id} not found.`);
       return false;
     }
-    return updateTasks(id, tasks[taskIndex]!.description, status);
+    tasks[taskIndex]!.status = status;
+    tasks[taskIndex]!.updatedAt = new Date().toISOString();
+    fs.writeFileSync(FILE_PATH, JSON.stringify(tasks, null, 2), "utf-8");
+    return true;
   } catch (error) {
     // console.error("Error in updateTaskStatus:", error); // Uncomment for debugging
     return false;
