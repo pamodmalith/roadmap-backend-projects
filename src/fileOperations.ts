@@ -51,4 +51,23 @@ function addTasks(task: string): number {
   }
 }
 
-export { initializeStorage, readTasks, addTasks };
+// Update task in the JSON file
+const updateTasks = (id: number, task: string): boolean => {
+  try {
+    const tasks = readTasks();
+    const taskIndex = tasks.findIndex((task) => task.id === id);
+    if (taskIndex === -1) {
+      console.error(`Task with ID ${id} not found.`);
+      return false;
+    }
+    tasks[taskIndex]!.description = task;
+    tasks[taskIndex]!.updatedAt = new Date().toISOString();
+    fs.writeFileSync(FILE_PATH, JSON.stringify(tasks, null, 2), "utf-8");
+    return true;
+  } catch (error) {
+    console.error("Error in updateTasks:", error);
+    return false;
+  }
+};
+
+export { initializeStorage, readTasks, addTasks, updateTasks };

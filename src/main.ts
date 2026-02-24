@@ -1,4 +1,9 @@
-import { initializeStorage, readTasks, addTasks } from "./fileOperations.js";
+import {
+  initializeStorage,
+  readTasks,
+  addTasks,
+  updateTasks,
+} from "./fileOperations.js";
 
 // 3. Main function to handle CLI commands
 function main() {
@@ -14,7 +19,7 @@ function main() {
     );
     return;
   }
-  if (args.length > 2) {
+  if (args.length > 3) {
     console.log("Too many arguments provided. Please check your command.");
     return;
   }
@@ -34,6 +39,24 @@ function main() {
         console.log(`Task added successfully (ID: ${id})`);
       } else {
         console.log("Error occured when adding task. Please try again!");
+      }
+      break;
+
+    case "update":
+      if (!args[1]) {
+        console.error("Please provide a task ID to update.");
+        return;
+      } else if (!args[2]) {
+        console.error("Please provide a new description for the task.");
+        return;
+      }
+      const idToUpdate = parseInt(args[1]);
+      const newDescription = args[2].trim();
+      const success = updateTasks(idToUpdate, newDescription);
+      if (success) {
+        console.log(`Task updated successfully (ID: ${idToUpdate})`);
+      } else {
+        console.log("Error occurred when updating task. Please try again!");
       }
       break;
 
