@@ -2,7 +2,7 @@
 interface TTask {
   id: number;
   description: string;
-  status: "todo" | "in-progress" | "done";
+  status: TStatus;
   createdAt: string;
   updatedAt: string;
 }

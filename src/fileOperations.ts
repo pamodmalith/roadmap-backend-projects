@@ -16,11 +16,11 @@ function initializeStorage() {
 }
 
 // Read tasks from the JSON file
-const readTasks = (status: TStatus = "all"): TTask[] => {
+const readTasks = (status?: TStatus): TTask[] => {
   try {
     const data = fs.readFileSync(FILE_PATH, "utf-8");
     const tasks: TTask[] = JSON.parse(data) as TTask[];
-    if (status === "all") {
+    if (!status) {
       return tasks;
     }
     return tasks.filter((task) => task.status === status);
@@ -52,7 +52,7 @@ function addTasks(task: string): number {
 }
 
 // Update task in the JSON file
-const updateTasks = (id: number, task: string): boolean => {
+const updateTasks = (id: number, task: string, status?: TStatus): boolean => {
   try {
     const tasks = readTasks();
     const taskIndex = tasks.findIndex((task) => task.id === id);
@@ -61,11 +61,30 @@ const updateTasks = (id: number, task: string): boolean => {
       return false;
     }
     tasks[taskIndex]!.description = task;
+    if (status) {
+      tasks[taskIndex]!.status = status;
+    }
     tasks[taskIndex]!.updatedAt = new Date().toISOString();
     fs.writeFileSync(FILE_PATH, JSON.stringify(tasks, null, 2), "utf-8");
     return true;
   } catch (error) {
     console.error("Error in updateTasks:", error);
+    return false;
+  }
+};
+
+//update task status in the JSON file
+const updateTaskStatus = (id: number, status: TStatus): boolean => {
+  try {
+    const tasks = readTasks();
+    const taskIndex = tasks.findIndex((task) => task.id === id);
+    if (taskIndex === -1) {
+      console.error(`Task with ID ${id} not found.`);
+      return false;
+    }
+    return updateTasks(id, tasks[taskIndex]!.description, status);
+  } catch (error) {
+    console.error("Error in updateTaskStatus:", error);
     return false;
   }
 };
@@ -87,4 +106,11 @@ const deleteTask = (id: number): boolean => {
   }
 };
 
-export { initializeStorage, readTasks, addTasks, updateTasks, deleteTask };
+export {
+  initializeStorage,
+  readTasks,
+  addTasks,
+  updateTasks,
+  deleteTask,
+  updateTaskStatus,
+};
