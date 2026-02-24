@@ -25,31 +25,14 @@ function main() {
   // Extract the command
   const command = args[0];
 
-  if (command === "update") {
-    if (!args[1]) {
-      console.error("Please provide a task ID to update.");
-      return;
-    } else if (!args[2]) {
-      console.error("Please provide a new description for the task.");
-      return;
-    }
-    const idToUpdate = parseInt(args[1]);
-    const newDescription = args[2].trim();
-    const success = updateTasks(idToUpdate, newDescription);
-    if (success) {
-      console.log(`Task updated successfully (ID: ${idToUpdate})`);
-      return;
-    } else {
-      console.log("Error occurred when updating task. Please try again!");
-      return;
-    }
-  } else if (args.length > 2) {
-    console.log("Too many arguments provided. Please check your command.");
-    return;
-  }
-
   switch (command) {
     case "add":
+      if (args.length > 2) {
+        console.log(
+          'Too many arguments. If your task has spaces, wrap it in quotes: add "My task"',
+        );
+        return;
+      }
       const description = args[1];
       if (!description) {
         console.error("Please provide a task description.");
@@ -64,9 +47,28 @@ function main() {
       break;
 
     case "update":
+      if (args.length > 3) {
+        console.log('Too many arguments. Usage: update <id> "New Description"');
+        return;
+      }
+      if (!args[1] || !args[2]) {
+        console.error("Please provide both a task ID and a new description.");
+        return;
+      }
+      const idToUpdate = parseInt(args[1]);
+      const newDescription = args[2].trim();
+      if (updateTasks(idToUpdate, newDescription)) {
+        console.log(`Task updated successfully (ID: ${idToUpdate})`);
+      } else {
+        console.log("Error occurred when updating task. Please try again!");
+      }
       break;
 
     case "list":
+      if (args.length > 2) {
+        console.log("Too many arguments. Usage: list OR list <status>");
+        return;
+      }
       const param = args[1];
       if (param) {
         if (param === "done" || param === "todo" || param === "in-progress") {
@@ -94,8 +96,12 @@ function main() {
       break;
 
     case "delete":
+      if (args.length > 2) {
+        console.log("Too many arguments. Usage: delete <id>");
+        return;
+      }
       if (!args[1]) {
-        console.error("Please provide a task ID to update.");
+        console.error("Please provide a task ID to delete.");
         return;
       }
       const idToDelete = parseInt(args[1]);
@@ -108,6 +114,10 @@ function main() {
       break;
 
     case "mark-in-progress":
+      if (args.length > 2) {
+        console.log("Too many arguments. Usage: mark-in-progress <id>");
+        return;
+      }
       if (!args[1]) {
         console.error("Please provide a task ID to update.");
         return;
@@ -127,6 +137,10 @@ function main() {
       break;
 
     case "mark-done":
+      if (args.length > 2) {
+        console.log("Too many arguments. Usage: mark-done <id>");
+        return;
+      }
       if (!args[1]) {
         console.error("Please provide a task ID to update.");
         return;
