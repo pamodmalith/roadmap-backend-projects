@@ -25,7 +25,7 @@ const readTasks = (status?: TStatus): TTask[] => {
     }
     return tasks.filter((task) => task.status === status);
   } catch (error) {
-    console.error("Error reading tasks:", error);
+    // console.error("Error reading tasks:", error); // Uncomment for debugging
     return [];
   }
 };
@@ -46,7 +46,7 @@ function addTasks(task: string): number {
     fs.writeFileSync(FILE_PATH, JSON.stringify(tasks, null, 2), "utf-8");
     return newId;
   } catch (error) {
-    console.error("Error in addTask:", error); // Uncomment for debugging
+    // console.error("Error in addTask:", error); // Uncomment for debugging
     return -1;
   }
 }
@@ -68,7 +68,7 @@ const updateTasks = (id: number, task: string, status?: TStatus): boolean => {
     fs.writeFileSync(FILE_PATH, JSON.stringify(tasks, null, 2), "utf-8");
     return true;
   } catch (error) {
-    console.error("Error in updateTasks:", error);
+    // console.error("Error in updateTasks:", error); // Uncomment for debugging
     return false;
   }
 };
@@ -84,11 +84,12 @@ const updateTaskStatus = (id: number, status: TStatus): boolean => {
     }
     return updateTasks(id, tasks[taskIndex]!.description, status);
   } catch (error) {
-    console.error("Error in updateTaskStatus:", error);
+    // console.error("Error in updateTaskStatus:", error); // Uncomment for debugging
     return false;
   }
 };
 
+// Delete task from the JSON file
 const deleteTask = (id: number): boolean => {
   try {
     const tasks = readTasks();
@@ -101,7 +102,7 @@ const deleteTask = (id: number): boolean => {
     fs.writeFileSync(FILE_PATH, JSON.stringify(tasks, null, 2), "utf-8");
     return true;
   } catch (error) {
-    console.error("Error in deleteTask:", error);
+    // console.error("Error in deleteTask:", error); // Uncomment for debugging
     return false;
   }
 };

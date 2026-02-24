@@ -70,7 +70,7 @@ function main() {
       const param = args[1];
       if (param) {
         if (param === "done" || param === "todo" || param === "in-progress") {
-          console.log(param);
+          // console.log(param); // Uncomment for debugging
           const tasks = readTasks(param);
           if (tasks.length === 0) {
             return console.log("No tasks found with status:", param);
