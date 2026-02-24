@@ -12,7 +12,7 @@ Here is a log of the projects I have built, in order of completion:
 | --- | -------------------- | ----------------------------------------------------------------------------------------------- | ------------------- | ------------ | ------------------------------- |
 | 1   | **[Task Tracker CLI](https://github.com/pamodmalith/roadmap-backend-projects/tree/main/task-tracker-cli)** | A command-line application to track, manage, and filter tasks with local JSON file persistence. | TypeScript, Node.js | ✅ Completed | [View Code](./task-tracker-cli) |
 | 2   | _Next Project_       | _Coming soon..._                                                                                |                     | 🚧 Pending   |                                 |
-https://roadmap.sh/projects/task-tracker
+
 ## 🛠️ Technologies Used
 
 Across this repository, you will find a variety of backend tools, languages, and core concepts, currently featuring:
