@@ -8,6 +8,16 @@ function main() {
   // The actual user command starts at index 2
   const args = process.argv.slice(2);
 
+  if (args.length === 0) {
+    console.log(
+      "No command provided. Available commands: add, list, update, delete",
+    );
+    return;
+  }
+  if (args.length > 2) {
+    console.log("Too many arguments provided. Please check your command.");
+    return;
+  }
   const command = args[0];
 
   switch (command) {
