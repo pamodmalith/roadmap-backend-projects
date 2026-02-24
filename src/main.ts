@@ -20,13 +20,32 @@ function main() {
     );
     return;
   }
-  if (args.length > 3) {
-    console.log("Too many arguments provided. Please check your command.");
-    return;
-  }
 
   // Extract the command
   const command = args[0];
+
+  if (command === "update") {
+    if (!args[1]) {
+      console.error("Please provide a task ID to update.");
+      return;
+    } else if (!args[2]) {
+      console.error("Please provide a new description for the task.");
+      return;
+    }
+    const idToUpdate = parseInt(args[1]);
+    const newDescription = args[2].trim();
+    const success = updateTasks(idToUpdate, newDescription);
+    if (success) {
+      console.log(`Task updated successfully (ID: ${idToUpdate})`);
+      return;
+    } else {
+      console.log("Error occurred when updating task. Please try again!");
+      return;
+    }
+  } else if (args.length > 2) {
+    console.log("Too many arguments provided. Please check your command.");
+    return;
+  }
 
   switch (command) {
     case "add":
@@ -44,21 +63,6 @@ function main() {
       break;
 
     case "update":
-      if (!args[1]) {
-        console.error("Please provide a task ID to update.");
-        return;
-      } else if (!args[2]) {
-        console.error("Please provide a new description for the task.");
-        return;
-      }
-      const idToUpdate = parseInt(args[1]);
-      const newDescription = args[2].trim();
-      const success = updateTasks(idToUpdate, newDescription);
-      if (success) {
-        console.log(`Task updated successfully (ID: ${idToUpdate})`);
-      } else {
-        console.log("Error occurred when updating task. Please try again!");
-      }
       break;
 
     case "list":
@@ -100,6 +104,9 @@ function main() {
       } else {
         console.log("Error occurred when deleting task. Please try again!");
       }
+      break;
+
+    case "mark-in-progress":
       break;
 
     default:
