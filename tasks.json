@@ -2,9 +2,9 @@
   {
     "id": 1,
     "description": "Sample task",
-    "status": "todo",
+    "status": "done",
     "createdAt": "2024-01-01T00:00:00Z",
-    "updatedAt": "2024-01-01T00:00:00Z"
+    "updatedAt": "2026-02-24T18:36:16.794Z"
   },
   {
     "id": 2,

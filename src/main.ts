@@ -4,6 +4,7 @@ import {
   addTasks,
   updateTasks,
   deleteTask,
+  updateTaskStatus,
 } from "./fileOperations.js";
 
 // 3. Main function to handle CLI commands
@@ -107,6 +108,38 @@ function main() {
       break;
 
     case "mark-in-progress":
+      if (!args[1]) {
+        console.error("Please provide a task ID to update.");
+        return;
+      }
+      const idToMarkInProgress = parseInt(args[1]);
+      const statusInProgress = updateTaskStatus(
+        idToMarkInProgress,
+        "in-progress",
+      );
+      if (statusInProgress) {
+        console.log(`Task marked as in-progress (ID: ${idToMarkInProgress})`);
+      } else {
+        console.log(
+          "Error occurred when marking task as in-progress. Please try again!",
+        );
+      }
+      break;
+
+    case "mark-done":
+      if (!args[1]) {
+        console.error("Please provide a task ID to update.");
+        return;
+      }
+      const idToMarkDone = parseInt(args[1]);
+      const statusDone = updateTaskStatus(idToMarkDone, "done");
+      if (statusDone) {
+        console.log(`Task marked as done (ID: ${idToMarkDone})`);
+      } else {
+        console.log(
+          "Error occurred when marking task as done. Please try again!",
+        );
+      }
       break;
 
     default:
