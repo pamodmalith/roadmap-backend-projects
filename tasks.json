@@ -2,9 +2,9 @@
   {
     "id": 1,
     "description": "Sample task",
-    "status": "done",
+    "status": "todo",
     "createdAt": "2024-01-01T00:00:00Z",
-    "updatedAt": "2026-02-24T18:36:16.794Z"
+    "updatedAt": "2026-02-24T18:39:43.825Z"
   },
   {
     "id": 2,
@@ -12,5 +12,19 @@
     "status": "in-progress",
     "createdAt": "2024-01-02T00:00:00Z",
     "updatedAt": "2024-01-02T00:00:00Z"
+  },
+  {
+    "id": 3,
+    "description": "Completed task",
+    "status": "done",
+    "createdAt": "2024-01-03T00:00:00Z",
+    "updatedAt": "2024-01-03T00:00:00Z"
+  },
+  {
+    "id": 4,
+    "description": "Task to be deleted",
+    "status": "done",
+    "createdAt": "2024-01-04T00:00:00Z",
+    "updatedAt": "2024-01-04T00:00:00Z"
   }
 ]
