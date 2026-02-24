@@ -7,4 +7,4 @@ interface TTask {
   updatedAt: string;
 }
 
-type TStatus = "done" | "todo" | "in-progress" | "all";
+type TStatus = "done" | "todo" | "in-progress";
