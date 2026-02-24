@@ -3,6 +3,7 @@ import {
   readTasks,
   addTasks,
   updateTasks,
+  deleteTask,
 } from "./fileOperations.js";
 
 // 3. Main function to handle CLI commands
@@ -87,9 +88,23 @@ function main() {
       }
       break;
 
+    case "delete":
+      if (!args[1]) {
+        console.error("Please provide a task ID to update.");
+        return;
+      }
+      const idToDelete = parseInt(args[1]);
+      const status = deleteTask(idToDelete);
+      if (status) {
+        console.log(`Task deleted successfully (ID: ${idToDelete})`);
+      } else {
+        console.log("Error occurred when deleting task. Please try again!");
+      }
+      break;
+
     default:
       console.log(
-        "Unknown command. Available commands: add, list, update, delete",
+        "Unknown command. Available commands: add, list, update, mark-in-progress, mark-done, delete",
       );
   }
 }

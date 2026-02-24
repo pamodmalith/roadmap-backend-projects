@@ -70,4 +70,21 @@ const updateTasks = (id: number, task: string): boolean => {
   }
 };
 
-export { initializeStorage, readTasks, addTasks, updateTasks };
+const deleteTask = (id: number): boolean => {
+  try {
+    const tasks = readTasks();
+    const index = tasks.findIndex((task) => task.id === id);
+    if (index === -1) {
+      console.error(`Task with ID ${id} not found.`);
+      return false;
+    }
+    tasks.splice(index, 1);
+    fs.writeFileSync(FILE_PATH, JSON.stringify(tasks, null, 2), "utf-8");
+    return true;
+  } catch (error) {
+    console.error("Error in deleteTask:", error);
+    return false;
+  }
+};
+
+export { initializeStorage, readTasks, addTasks, updateTasks, deleteTask };
