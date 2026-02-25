@@ -19,7 +19,7 @@ function main() {
 
   if (args.length === 0) {
     console.log(
-      "No command provided. Available commands: add, list, update, delete",
+      "No command provided. Available commands: add, list, update, delete, mark-in-progress, mark-done",
     );
     return;
   }
