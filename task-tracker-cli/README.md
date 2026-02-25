@@ -8,7 +8,7 @@ This is a solution to the [Task Tracker project](https://roadmap.sh/projects/tas
 
 - **Add Tasks:** Quickly add new tasks to your list.
 - **List Tasks:** View all tasks, or filter them specifically by their status (`todo`, `in-progress`, `done`).
-- **Update & Delete:** Modify existing tasks or remove them entirely (WIP).
+- **Update & Delete:** Modify existing tasks or remove them entirely.
 - **Data Persistence:** Tasks are saved locally to a `tasks.json` file, ensuring no data is lost between terminal sessions.
 
 ## 🛠️ Tech Stack
@@ -51,27 +51,76 @@ npm install
 npm run build
 ```
 
+### 🌍 Global Setup (Recommended)
+
+To use this CLI tool from anywhere on your system without navigating to the project folder, you can link it globally.
+
+1. Make the compiled output executable (Linux/macOS):
+
+```bash
+chmod +x dist/main.js
+```
+
+2. Create a global symlink:
+
+```bash
+npm link
+```
+
+_(To uninstall the global command later, run `npm rm -g task-tracker-cli`)._
+
 ## 💻 Usage
 
-Once the code is compiled, you can interact with the CLI using the `npm start` command followed by your desired action.
+If you set up the global link, you can interact with the CLI from any folder using the `task-cli` command. _(If running locally without the **link**, substitute `task-cli` with `npm start`)._
 **Adding a new task:**
 
 ```bash
-npm start add "Buy groceries"
+task-cli add "Buy groceries"
 ```
 
-**Listing all tasks:**
+**Updating a task:**
 
+```bash
+task-cli update 1 "Buy groceries and cook dinner"
+```
+
+**Managing status:**
+
+```bash
+task-cli mark-in-progress 1
+task-cli mark-done 1
+```
+
+**Listing tasks:**
+
+```bash
+task-cli list
+task-cli list done
+task-cli list todo
+```
+
+**Deleting a task:**
+
+```bash
+task-cli delete 1
+```
+
+<!--
+Once the code is compiled, you can interact with the CLI using the `npm start` command followed by your desired action.
+**Adding a new task:**
+```bash
+npm start add "Buy groceries"
+```
+**Listing all tasks:**
 ```bash
 npm start list
 ```
-
 **Listing tasks by status:**
-
 ```bash
 npm start list done
 npm start list todo
 ```
+-->
 
 ---
 
